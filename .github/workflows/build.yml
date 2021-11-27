@@ -5,6 +5,6 @@ jobs:
   compile:
     name: compile asm files
     runs-on: ubuntu-latest
-steps:
+  steps:
     - name: compile
       run: docker run -v "$PWD":/workspace micheldebree/kickass src/test.asm   
