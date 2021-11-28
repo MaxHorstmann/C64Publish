@@ -1,29 +1,29 @@
 <!doctype html>
 <html lang="en-us">
-    <head>
-        <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-    </head>
     <body>
         <!-- the canvas *must not* have any border or padding, or mouse coords will be wrong -->
         <canvas  id="canvas" style="border: 0px none;"></canvas>
         <script type="text/javascript" >
 
             function loadFiles() {
-                $.get("/C64Publish/src/test.prg", function(response) {
-                    FS.createDataFile('/', 'test.prg', response, true, true);
-
-                    var viceArguments = ['+sound', '-autostart', 'test.prg'];
-
-                    var Module = {
-                        preRun: [loadFiles],
-                        arguments: viceArguments,
-                        canvas: document.getElementById('canvas'),
-                    };                
-                });
+                var oReq = new XMLHttpRequest();
+                oReq.open("GET", "https://maxhorstmann.net/C64Publish/test2.d64", true);
+                oReq.responseType = "arraybuffer";
+                oReq.onload = function(oEvent) {
+                  alert(`Loaded: ${oReq.status} ${oReq.response}`);
+                  var byteArray = new Uint8Array(oReq.response);
+                  FS.createDataFile('/', 'test.prg', byteArray, true, true);
+                };
+                oReq.send();
             }
+
+            var viceArguments = ['+sound', '-autoload', 'test.prg'];
+
+            var Module = {
+                preRun: [loadFiles],
+                arguments: viceArguments,
+                canvas: document.getElementById('canvas'),
+            }; 
 
         </script>
         <script type="text/javascript" src="js/x64.js"></script>
