@@ -18,7 +18,7 @@
             }
 
             function loadFiles() {
-                $.get("src/test.prg", function(response) {
+                $.get("/C64Publish/src/test.prg", function(response) {
                     FS.createDataFile('/', 'test.prg', response, true, true);
                 });
             }
