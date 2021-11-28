@@ -6,5 +6,5 @@ jobs:
     name: compile asm files
     runs-on: ubuntu-latest
     steps:
-    - name: compile it
-      run: docker run -v "$PWD":/workspace micheldebree/kickass src/test.asm   
+    - uses: actions/checkout@v2
+    - run: docker run -v "$PWD":/workspace micheldebree/kickass src/test.asm   
