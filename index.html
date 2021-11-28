@@ -14,16 +14,16 @@
             function loadFiles() {
                 $.get("/C64Publish/src/test.prg", function(response) {
                     FS.createDataFile('/', 'test.prg', response, true, true);
+
+                    var viceArguments = ['+sound', '-autostart', 'test.prg'];
+
+                    var Module = {
+                        preRun: [loadFiles],
+                        arguments: viceArguments,
+                        canvas: document.getElementById('canvas'),
+                    };                
                 });
             }
-
-            var viceArguments = ['+sound', '-autostart', 'test.prg'];
-
-            var Module = {
-                preRun: [loadFiles],
-                arguments: viceArguments,
-                canvas: document.getElementById('canvas'),
-            };
 
         </script>
         <script type="text/javascript" src="js/x64.js"></script>
