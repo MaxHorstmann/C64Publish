@@ -11,21 +11,13 @@
         <canvas  id="canvas" style="border: 0px none;"></canvas>
         <script type="text/javascript" >
 
-            function audioDetected() {
-                return (typeof Audio === 'function' && new Audio().mozSetup === 'function') ||
-                    (typeof AudioContext === 'function') ||
-                    (typeof webkitAudioContext === 'function');
-            }
-
             function loadFiles() {
                 $.get("/C64Publish/src/test.prg", function(response) {
                     FS.createDataFile('/', 'test.prg', response, true, true);
                 });
             }
 
-            var viceArguments = ['-autostart', 'test.prg'].concat(
-                audioDetected() ? ['-soundsync', 0, '-soundrate', 22050, '-soundfragsize', 2] : ['-sound']
-            );
+            var viceArguments = ['-autostart', 'test.prg'];
 
             var Module = {
                 preRun: [loadFiles],
