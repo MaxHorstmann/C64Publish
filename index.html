@@ -10,14 +10,15 @@
                 oReq.open("GET", "https://maxhorstmann.net/C64Publish/test2.d64", true);
                 oReq.responseType = "arraybuffer";
                 oReq.onload = function(oEvent) {
-                  alert(`Loaded: ${oReq.status} ${oReq.response}`);
                   var byteArray = new Uint8Array(oReq.response);
-                  FS.createDataFile('/', 'test.prg', byteArray, true, true);
+                  FS.createDataFile('/', 'test2.d64', byteArray, true, true);
+                  console.log("file created");
                 };
                 oReq.send();
+
             }
 
-            var viceArguments = ['+sound', '-autoload', 'test.prg'];
+            var viceArguments = ['+sound', '-autoload', 'test2.d64'];
 
             var Module = {
                 preRun: [loadFiles],
